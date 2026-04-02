@@ -7,6 +7,7 @@ PRAGMA foreign_keys = ON;
 
 BEGIN TRANSACTION;
 
+/* Table records used to identify restaurant tables and QR assignments. */
 CREATE TABLE IF NOT EXISTS restaurant_tables (
     table_id INTEGER PRIMARY KEY,
     table_number INTEGER NOT NULL UNIQUE,
@@ -16,12 +17,14 @@ CREATE TABLE IF NOT EXISTS restaurant_tables (
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+/* Categories keep the menu organized for both customers and staff. */
 CREATE TABLE IF NOT EXISTS menu_categories (
     category_id INTEGER PRIMARY KEY,
     category_name TEXT NOT NULL UNIQUE,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+/* Menu items belong to a category and can be toggled on or off. */
 CREATE TABLE IF NOT EXISTS menu_items (
     item_id INTEGER PRIMARY KEY,
     category_id INTEGER NOT NULL,
@@ -35,6 +38,7 @@ CREATE TABLE IF NOT EXISTS menu_items (
     FOREIGN KEY (category_id) REFERENCES menu_categories(category_id)
 );
 
+/* Orders track the main order record for each table. */
 CREATE TABLE IF NOT EXISTS orders (
     order_id INTEGER PRIMARY KEY,
     table_id INTEGER NOT NULL,
@@ -50,6 +54,7 @@ CREATE TABLE IF NOT EXISTS orders (
     FOREIGN KEY (table_id) REFERENCES restaurant_tables(table_id)
 );
 
+/* Order items store the individual menu items inside each order. */
 CREATE TABLE IF NOT EXISTS order_items (
     order_item_id INTEGER PRIMARY KEY,
     order_id INTEGER NOT NULL,
@@ -62,6 +67,7 @@ CREATE TABLE IF NOT EXISTS order_items (
     FOREIGN KEY (item_id) REFERENCES menu_items(item_id)
 );
 
+/* Indexes support the main lookups expected in the prototype. */
 CREATE INDEX IF NOT EXISTS idx_menu_items_category_id
     ON menu_items(category_id);
 

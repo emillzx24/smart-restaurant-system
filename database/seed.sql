@@ -7,6 +7,7 @@ PRAGMA foreign_keys = ON;
 
 BEGIN TRANSACTION;
 
+/* Demo table records used for local testing. */
 INSERT INTO restaurant_tables (table_id, table_number, qr_code_value, status, created_at)
 VALUES
     (1, 1, 'table-1-qr', 'active', '2026-04-02 10:00:00'),
@@ -19,6 +20,7 @@ VALUES
     (2, 'Main Courses', '2026-04-02 10:05:00'),
     (3, 'Drinks', '2026-04-02 10:05:00');
 
+/* Sample menu items that cover multiple categories. */
 INSERT INTO menu_items (
     item_id,
     category_id,
@@ -41,6 +43,7 @@ VALUES
     (9, 3, 'Iced Tea', 'Unsweetened iced tea with lemon.', 3.00, 1, '2026-04-02 10:10:00', '2026-04-02 10:10:00'),
     (10, 3, 'Sparkling Water', 'Chilled sparkling water.', 2.50, 1, '2026-04-02 10:10:00', '2026-04-02 10:10:00');
 
+/* Orders show different states for testing the workflow. */
 INSERT INTO orders (
     order_id,
     table_id,
@@ -57,6 +60,7 @@ VALUES
     (2, 2, 'preparing', 'paid', 17.50, '2026-04-02 11:05:00', '2026-04-02 11:15:00', NULL, NULL),
     (3, 3, 'ready', 'unpaid', 16.00, '2026-04-02 11:10:00', '2026-04-02 11:25:00', NULL, NULL);
 
+/* Order items are kept separate so totals and joins can be tested. */
 INSERT INTO order_items (
     order_item_id,
     order_id,
