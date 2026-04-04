@@ -3,6 +3,8 @@
 ## Overview
 Prototype web application that allows customers to place orders digitally and enables staff to manage and track those orders.
 
+This branch currently focuses on the initial database setup for the project.
+
 ## Tech Stack
 - Python
 - Streamlit
@@ -13,17 +15,30 @@ Prototype web application that allows customers to place orders digitally and en
 - pages/
 - components/
 - services/
+  - database_service.py
 - database/
+  - schema.sql
+  - seed.sql
 - models/
 
 ## Setup
-pip install streamlit  
-streamlit run app.py
+1. Install Streamlit:
+   `pip install streamlit`
+2. Create the local SQLite database from the schema:
+   `sqlite3 database/restaurant.db < database/schema.sql`
+3. Load demo seed data:
+   `sqlite3 database/restaurant.db < database/seed.sql`
+4. Run the app:
+   `streamlit run app.py`
+
+## Database Notes
+- The main database files for this phase are `database/schema.sql` and `database/seed.sql`.
+- For the full database explanation and helper function guide, use `database/teammate-guide.md`.
 
 ## Core Functionality
-- Customer order input (in progress)  
-- Staff order management (planned)  
-- Order storage and status tracking (planned)
+- Customer order input (in progress)
+- Staff order management (planned)
+- Order storage and status tracking (database setup complete for initial prototype)
 
 ## Team
 - Stephanie Dunlap  
