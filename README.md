@@ -37,7 +37,7 @@ This branch currently focuses on the initial database setup for the project.
 
 ## Core Functionality
 - Customer order input (in progress)
-- Staff order management (planned)
+- Staff order management (complete — pages/staff.py)
 - Order storage and status tracking (database setup complete for initial prototype)
 
 ## Team
