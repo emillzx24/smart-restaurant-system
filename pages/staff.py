@@ -5,14 +5,14 @@ st.title("Staff Dashboard")
 st.caption("View and manage all active orders")
 
 NEXT_STATUS = {
-    "pending":     "in_progress",
-    "in_progress": "ready",
+    "pending":     "preparing",
+    "preparing": "ready",
     "ready":       "completed",
 }
 
 BUTTON_LABELS = {
     "pending":     "Claim — start cooking",
-    "in_progress": "Mark as ready",
+    "preparing": "Mark as ready",
     "ready":       "Confirm pickup — complete",
 }
 
