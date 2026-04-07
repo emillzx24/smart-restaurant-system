@@ -1,47 +1,69 @@
 # Smart Restaurant System
 
 ## Overview
-Prototype web application that allows customers to place orders digitally and enables staff to manage and track those orders.
+The Smart Restaurant System is a web-based application designed to improve the restaurant ordering process. It allows customers to place orders digitally while letting staff view and manage those orders in real time.
 
-This branch currently focuses on the initial database setup for the project.
+## Features
+- Customer places orders through the user interface
+- Orders are stored in a SQLite database
+- Staff can view and manage incoming orders
+- Modular structure using services and pages
+- Basic testing for main functionality
 
-## Tech Stack
+## Technologies Used
 - Python
 - Streamlit
 - SQLite
+- GitHub
 
 ## Project Structure
-- app.py
+- app.py  
 - pages/
-- components/
+   - pages/customer.py
+   - pages/staff.py
+- components/  
 - services/
-  - database_service.py
+   - services/__init__.py
+   - services/database_service.py
 - database/
-  - schema.sql
-  - seed.sql
-- models/
+   - database/schema.sql
+   - database/seed.sql
+- models/  
 
 ## Setup
-1. Install Streamlit:
-   `pip install streamlit`
-2. Create the local SQLite database from the schema:
-   `sqlite3 database/restaurant.db < database/schema.sql`
-3. Load demo seed data:
-   `sqlite3 database/restaurant.db < database/seed.sql`
-4. Run the app:
-   `streamlit run app.py`
+1. Install dependencies:
+   pip install streamlit
+
+2. Create the database:
+   sqlite3 database/restaurant.db < database/schema.sql
+
+3. Load seed data:
+   sqlite3 database/restaurant.db < database/seed.sql
+
+4. Run the application:
+   streamlit run app.py
 
 ## Database Notes
-- The main database files for this phase are `database/schema.sql` and `database/seed.sql`.
-- For the full database explanation and helper function guide, use `database/teammate-guide.md`.
+The main database files for this phase are:
+- database/schema.sql
+- database/seed.sql
 
-## Core Functionality
-- Customer order input (in progress)
-- Staff order management (complete — pages/staff.py)
-- Order storage and status tracking (database setup complete for initial prototype)
+See database/teammate-guide.md for more details.
+
+## Testing
+Test cases are included to validate core capability such as:
+- Order creation
+- Database interactions
+- Staff order viewing
+
+See TEST_CASES.md for more details.
+
+## Notes
+This project represents Phase I of the capstone and focuses on the main workflow:
+customer places an order, order is stored in the database , and staff can view and manage the order.
 
 ## Team
-- Stephanie Dunlap  
-- Geraldine Osawemen  
-- Andrei Fajutagana  
-- Emilio Laboy  
+- Stephanie Dunlap
+- Geraldine Osawemen
+- Andrei Fajutagana
+- Emilio Laboy

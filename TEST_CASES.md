@@ -1,7 +1,7 @@
 # Smart Restaurant System - Test Cases
 
 ## Test Scope
-For testing, I focused mostly on the database/service layer since that's where most of the functionality currently exists in the project. The tests are based on the file:
+For testing, I focused primarily on the database/service layer since that's where most of the functionality is implemented in the project. The tests are based on the file:
 services/database_service.py
 
 ## Test Cases
@@ -22,7 +22,7 @@ services/database_service.py
 14. Checked that order details include all related line items.
 
 ## Testing Method
-I used Python's built-in unittest framework to create and run the tests. I chose this because it's simple and doesn't require installing any extra libraries.
+I used Python's built-in unittest framework to create and run the tests. I chose this because it's simple and doesn't require installing any extra libraries. The final test run completed successfully with 22 tests run, 0 failures, and 0 errors.
 
 ## How to Run Tests
 Run the following command in the project folder:
