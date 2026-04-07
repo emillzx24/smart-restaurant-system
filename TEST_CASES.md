@@ -27,4 +27,4 @@ I used Python's built-in unittest framework to create and run the tests. I chose
 ## How to Run Tests
 Run the following command in the project folder:
 
-python -m unittest discover -s tests -p "test_*.py" -v
+python -m unittest test_database_service.py test_staff_page.py -v
