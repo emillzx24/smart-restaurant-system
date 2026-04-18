@@ -67,6 +67,18 @@ CREATE TABLE IF NOT EXISTS order_items (
     FOREIGN KEY (item_id) REFERENCES menu_items(item_id)
 );
 
+/* Authorized Staff Accounts. */
+CREATE TABLE IF NOT EXISTS users (
+    user_id INTEGER PRIMARY KEY,
+    username TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    role TEXT NOT NULL
+        CHECK (role IN ('manager', 'kitchen')),
+    is_active INTEGER NOT NULL DEFAULT 1
+        CHECK (is_active IN (0, 1)),
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 /* Indexes support the main lookups expected in the prototype. */
 CREATE INDEX IF NOT EXISTS idx_menu_items_category_id
     ON menu_items(category_id);

@@ -80,4 +80,17 @@ VALUES
     (7, 3, 8, 1, 3.50, NULL, 3.50),
     (8, 3, 10, 1, 2.50, NULL, 2.50);
 
+/* Demo staff accounts. */
+INSERT INTO users (
+    user_id,
+    username,
+    password,
+    role,
+    is_active,
+    created_at
+)
+VALUES
+    (1, 'manager1', 'manager123', 'manager', 1, '2026-04-02 10:15:00'),
+    (2, 'kitchen1', 'kitchen123', 'kitchen', 1, '2026-04-02 10:15:00');
+
 COMMIT;
