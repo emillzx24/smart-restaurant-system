@@ -1,3 +1,6 @@
+# test_database_service.py
+# Verifies SQLite helper behavior against the seeded restaurant database.
+
 import importlib
 import shutil
 import sys
@@ -43,12 +46,12 @@ class DatabaseServiceTests(unittest.TestCase):
     def test_initialize_database_creates_seeded_tables(self):
         self.assertTrue(database_service.DB_PATH.exists())
         categories = database_service.get_menu_categories()
-        self.assertEqual(3, len(categories))
+        self.assertEqual(9, len(categories))
         self.assertEqual("Appetizers", categories[0]["category_name"])
 
     def test_get_menu_items_can_filter_by_category(self):
-        drinks = database_service.get_menu_items(category_id=3)
-        self.assertEqual(3, len(drinks))
+        drinks = database_service.get_menu_items(category_id=9)
+        self.assertEqual(6, len(drinks))
         self.assertTrue(all(item["category_name"] == "Drinks" for item in drinks))
 
     def test_get_table_by_qr_returns_expected_table(self):
@@ -61,13 +64,13 @@ class DatabaseServiceTests(unittest.TestCase):
         order = database_service.create_order(
             table_id=1,
             items=[
-                {"item_id": 4, "quantity": 1, "special_instructions": "No onions"},
-                {"item_id": 8, "quantity": 2},
+                {"item_id": 18, "quantity": 1, "special_instructions": "No onions"},
+                {"item_id": 35, "quantity": 2},
             ],
         )
         self.assertEqual("pending", order["order_status"])
         self.assertEqual("unpaid", order["payment_status"])
-        self.assertAlmostEqual(19.0, order["order_total"], places=2)
+        self.assertAlmostEqual(21.85, order["order_total"], places=2)
         self.assertEqual(2, len(order["items"]))
         self.assertEqual("No onions", order["items"][0]["special_instructions"])
 
