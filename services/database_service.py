@@ -50,6 +50,39 @@ def get_connection() -> sqlite3.Connection:
     connection.execute("PRAGMA foreign_keys = ON")
     return connection
 
+def authenticate_user(username: str, password: str) -> dict[str, Any] | None:
+    """Validate a staff login against the users table."""
+    user = _fetch_one(
+        """
+        SELECT
+            user_id,
+            username,
+            password,
+            role,
+            is_active,
+            created_at
+        FROM users
+        WHERE username = ?
+        """,
+        (username,),
+    )
+
+    if user is None:
+        return None
+
+    if not user["is_active"]:
+        return None
+
+    if user["password"] != password:
+        return None
+
+    return {
+        "user_id": user["user_id"],
+        "username": user["username"],
+        "role": user["role"],
+        "is_active": user["is_active"],
+        "created_at": user["created_at"],
+    }
 
 def get_menu_categories() -> list[dict[str, Any]]:
     """Return all menu categories in a simple list format for the UI."""

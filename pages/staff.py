@@ -1,19 +1,33 @@
 import streamlit as st
 from services.database_service import get_orders, update_order_status
 
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
+if "role" not in st.session_state:
+    st.session_state.role = ""
+
+if not st.session_state.logged_in:
+    st.error("You must log in as staff to access the Staff Dashboard.")
+    st.stop()
+
+if st.session_state.role not in ["manager", "kitchen"]:
+    st.error("You do not have permission to access the Staff Dashboard.")
+    st.stop()
+
 st.title("Staff Dashboard")
 st.caption("View and manage all active orders")
 
 NEXT_STATUS = {
-    "pending":     "preparing",
+    "pending": "preparing",
     "preparing": "ready",
-    "ready":       "completed",
+    "ready": "completed",
 }
 
 BUTTON_LABELS = {
-    "pending":     "Claim — start cooking",
+    "pending": "Claim and start cooking",
     "preparing": "Mark as ready",
-    "ready":       "Confirm pickup — complete",
+    "ready": "Confirm pickup and complete",
 }
 
 orders = get_orders()
@@ -26,12 +40,14 @@ st.subheader(f"Active orders ({len(orders)})")
 
 for order in orders:
     order_id = order["order_id"]
-    status   = order["order_status"]
+    status = order["order_status"]
 
-    with st.expander(f"Order #{order_id} — Table {order['table_number']} — {status.upper()}"):
+    with st.expander(
+        f"Order #{order_id} | Table {order['table_number']} | {status.upper()}"
+    ):
         st.write(f"**Status:** {status}")
         st.write(f"**Table:** {order['table_number']}")
-        st.write(f"**Total:** ${order['order_total']}")
+        st.write(f"**Total:** ${order['order_total']:.2f}")
         st.write(f"**Placed at:** {order['created_at']}")
 
         if status in NEXT_STATUS:
@@ -43,4 +59,4 @@ for order in orders:
                 except Exception as e:
                     st.error(f"Could not update order: {e}")
         else:
-            st.success("Order complete — no further action needed.")
+            st.success("Order complete. No further action is needed.")
