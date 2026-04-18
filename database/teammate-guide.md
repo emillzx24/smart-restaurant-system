@@ -64,7 +64,7 @@ Use this when you need:
 ### `menu_categories`
 This stores menu sections like:
 - Appetizers
-- Main Courses
+- Sushi Rolls
 - Drinks
 
 ### `menu_items`
@@ -73,9 +73,9 @@ This stores the actual food and drink items.
 Each item belongs to one category.
 
 Examples:
-- Classic Burger
-- Fresh Lemonade
-- Garden Salad
+- Edamame
+- Chicken Teriyaki Bento
+- Green Tea
 
 ### `orders`
 This stores the main order record.
@@ -177,7 +177,7 @@ Examples:
 
 ```python
 all_items = get_menu_items()
-drinks = get_menu_items(category_id=3)
+drinks = get_menu_items(category_id=9)
 ```
 
 ### `get_table_by_qr(qr_code_value)`
@@ -218,8 +218,8 @@ Example:
 new_order = create_order(
     table_id=1,
     items=[
-        {"item_id": 4, "quantity": 1, "special_instructions": "No onions"},
-        {"item_id": 8, "quantity": 2},
+        {"item_id": 18, "quantity": 1, "special_instructions": "No onions"},
+        {"item_id": 35, "quantity": 2},
     ],
 )
 ```
@@ -357,7 +357,7 @@ order = create_order(
     table_id=1,
     items=[
         {"item_id": 1, "quantity": 1},
-        {"item_id": 8, "quantity": 2, "special_instructions": "No ice"},
+        {"item_id": 35, "quantity": 2, "special_instructions": "No ice"},
     ],
 )
 ```
