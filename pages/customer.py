@@ -77,7 +77,19 @@ def main():
 
     st.divider()
 
-    if st.button("Place Order"):
+    col1, col2 = st.columns(2)
+
+    with col1:
+        place = st.button("Place Order")
+
+    with col2:
+        if st.button("Clear Order"):
+            for key in list(st.session_state.keys()):
+                if key.startswith("qty_") or key.startswith("inst_"):
+                    del st.session_state[key]
+            st.rerun()
+
+    if place:
         if not order_items:
             st.warning("Please select at least one item.")
             return
@@ -85,9 +97,17 @@ def main():
         try:
             order = create_order(table_id=table_id, items=order_items)
             display_order_summary(order)
+
+            # Save order ID so confirmation page can access it
+            st.session_state["last_order_id"] = order["order_id"]
+            st.session_state["last_order_table"] = order["table_number"]
+
+            # Button to track live status
+            if st.button("Track my order status"):
+                st.switch_page("pages/confirmation.py")
+
         except Exception as error:
             st.error(f"Could not place order: {error}")
-
 
 if __name__ == "__main__":
     main()
