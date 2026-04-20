@@ -134,6 +134,20 @@ class DatabaseServiceTests(unittest.TestCase):
         self.assertGreaterEqual(len(order["items"]), 1)
         self.assertIn("item_name", order["items"][0])
 
+    def test_get_table_by_qr(self):
+    table = database_service.get_table_by_qr("table-1-qr")
+    self.assertIsNotNone(table)
+    self.assertEqual(table["table_number"], 1)
+
+
+def test_create_order_with_valid_table(self):
+    order = database_service.create_order(
+        table_id=1,
+        items=[{"item_id": 1, "quantity": 1}]
+    )
+    self.assertEqual(order["order_status"], "pending")
+    self.assertEqual(order["payment_status"], "unpaid")
+
 
 if __name__ == "__main__":
     unittest.main()
