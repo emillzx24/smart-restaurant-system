@@ -1,6 +1,10 @@
 import streamlit as st
-
-from services import create_order, get_menu_categories, get_menu_items
+from services.database_service import (
+    create_order,
+    get_menu_categories,
+    get_menu_items,
+    get_table_by_qr,
+)
 
 
 def build_order_items(categories):
@@ -14,7 +18,7 @@ def build_order_items(categories):
         for item in items:
             st.write(f"**{item['item_name']}** - ${item['price']:.2f}")
 
-            if item["description"]:
+            if item.get("description"):
                 st.caption(item["description"])
 
             quantity = st.number_input(
@@ -56,21 +60,57 @@ def display_order_summary(order):
 
     st.subheader("Order Summary")
     for item in order["items"]:
-        st.write(f"{item['quantity']} x {item['item_name']} - ${item['subtotal']:.2f}")
+        st.write(
+            f"{item['quantity']} x {item['item_name']} - ${item['subtotal']:.2f}"
+        )
 
-        if item["special_instructions"]:
+        if item.get("special_instructions"):
             st.caption(f"Instructions: {item['special_instructions']}")
 
 
 def main():
     """Render the customer ordering page."""
-    st.set_page_config(page_title="Customer", page_icon="🧾")
-
+    st.set_page_config(page_title="Customer", page_icon="ð½ï¸")
     st.title("Customer Order Page")
+    st.caption("Scan or enter a QR code to connect to your table and place an order.")
     st.write("Select your items and place an order.")
 
-    table_number = st.selectbox("Select Table", [1, 2, 3])
-    table_id = table_number
+    # QR code input section
+    qr_value = st.text_input("Scan or enter QR code")
+
+    col_qr1, col_qr2 = st.columns(2)
+
+    with col_qr1:
+        if st.button("Connect to Table"):
+            if not qr_value.strip():
+                st.warning("Please enter a QR code first.")
+            else:
+                try:
+                    table = get_table_by_qr(qr_value.strip())
+
+                    if table:
+                        st.session_state["table_id"] = table["table_id"]
+                        st.session_state["table_number"] = table["table_number"]
+                        st.success(f"Connected to Table {table['table_number']}")
+                    else:
+                        st.error("Invalid QR code")
+                except Exception as error:
+                    st.error(f"Could not connect table: {error}")
+
+    with col_qr2:
+        if st.button("Clear Table"):
+            st.session_state.pop("table_id", None)
+            st.session_state.pop("table_number", None)
+            st.rerun()
+
+    table_id = st.session_state.get("table_id")
+    table_number = st.session_state.get("table_number")
+
+    if table_id:
+        st.info(f"Connected Table: {table_number}")
+    else:
+        st.warning("Please connect to a table first.")
+        return
 
     categories = get_menu_categories()
     order_items = build_order_items(categories)
@@ -96,18 +136,23 @@ def main():
 
         try:
             order = create_order(table_id=table_id, items=order_items)
-            display_order_summary(order)
 
-            # Save order ID so confirmation page can access it
             st.session_state["last_order_id"] = order["order_id"]
             st.session_state["last_order_table"] = order["table_number"]
-
-            # Button to track live status
-            if st.button("Track my order status"):
-                st.switch_page("pages/confirmation.py")
+            st.session_state["order_just_placed"] = True
+            st.rerun()
 
         except Exception as error:
             st.error(f"Could not place order: {error}")
+
+    if st.session_state.get("last_order_id"):
+        if st.session_state.get("order_just_placed"):
+            st.success("Your order was placed successfully.")
+            st.session_state["order_just_placed"] = False
+
+        if st.button("Track my order status"):
+            st.switch_page("pages/confirmation.py")
+
 
 if __name__ == "__main__":
     main()
