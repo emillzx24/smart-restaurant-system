@@ -60,3 +60,32 @@ for order in orders:
                     st.error(f"Could not update order: {e}")
         else:
             st.success("Order complete. No further action is needed.")
+
+
+# -----------------------------
+# QR Code Generator (Manager)
+# -----------------------------
+import qrcode
+from io import BytesIO
+
+st.divider()
+st.subheader("Create QR Code for Table(Manager)")
+
+table_num = st.number_input("Enter table number", min_value=1, max_value=50, value=1)
+
+if st.button("Generate QR Code for table"):
+    qr_data = f"table-{table_num}-qr"
+
+    img = qrcode.make(qr_data)
+
+    buffer = BytesIO()
+    img.save(buffer, format="PNG")
+
+    st.image(buffer, caption=f"QR Code for Table {table_num}")
+
+    st.download_button(
+        label="Download QR Code",
+        data=buffer.getvalue(),
+        file_name=f"table_{table_num}_qr.png",
+        mime="image/png"
+    )
