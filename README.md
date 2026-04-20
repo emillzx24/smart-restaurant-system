@@ -1,36 +1,43 @@
 # Smart Restaurant System
 
 ## Overview
-The Smart Restaurant System is a web-based application designed to improve the restaurant ordering process. It allows customers to place orders digitally while letting staff view and manage those orders in real time.
+
+The Smart Restaurant System is a web-based application designed to improve the restaurant ordering process for small restaurants. It allows customers to place orders digitally while allowing staff to view, manage, and update those orders in real time.
+
+The goal of the project is to replace a manual ordering workflow with a simple digital system that improves efficiency, organization, and customer experience.
+
+This project represents the Phase II version of the capstone project and includes finalized core functionality, testing, and documentation.
 
 ## Features
-- Customer places orders through the user interface
+
+- Customers can place orders through the user interface
 - Orders are stored in a SQLite database
 - Staff can view and manage incoming orders
-- Modular structure using services and pages
-- Basic testing for main functionality
+- Order workflow is supported through the staff interface
+- Modular structure using pages, services, and database layers
+- Unit and manual testing for core functionality
 
 ## Technologies Used
+
 - Python
 - Streamlit
 - SQLite
 - GitHub
 
 ## Project Structure
-- app.py  
-- pages/
-   - pages/customer.py
-   - pages/staff.py
-- components/  
-- services/
-   - services/__init__.py
-   - services/database_service.py
+
+- app.py
+- components/
 - database/
-   - database/schema.sql
-   - database/seed.sql
-- models/  
+- models/
+- pages/
+- services/
+- TEST_CASES.md
+- test_database_service.py
+- test_staff_page.py
 
 ## Setup
+
 1. Install dependencies:
    pip install streamlit
 
@@ -44,25 +51,33 @@ The Smart Restaurant System is a web-based application designed to improve the r
    streamlit run app.py
 
 ## Database Notes
-The main database files for this phase are:
+
+The main database files for this project are:
+
 - database/schema.sql
 - database/seed.sql
 
 See database/teammate-guide.md for more details.
 
 ## Testing
-Test cases are included to validate core capability such as:
+
+Testing is included to validate core functionality such as:
+
 - Order creation
 - Database interactions
 - Staff order viewing
+- Staff workflow behavior
 
-See TEST_CASES.md for more details.
+The project includes test files for service and staff page functionality. See TEST_CASES.md for more details.
 
 ## Notes
-This project represents Phase I of the capstone and focuses on the main workflow:
-customer places an order, order is stored in the database , and staff can view and manage the order.
+
+This project represents the Phase II capstone submission. It focuses on the digital restaurant workflow, including customer ordering, database storage, and staff-side order management.
+
+The system is designed to be modular, maintainable, and easy to improve in future phases or extensions.
 
 ## Team
+
 - Stephanie Dunlap
 - Geraldine Osawemen
 - Andrei Fajutagana
