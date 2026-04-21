@@ -57,6 +57,18 @@ This project represents the Phase II version of the capstone project and include
 
    streamlit run app.py
 
+## Testing Customer Ordering
+
+To test customer ordering, first connect to a restaurant table by entering a valid QR code value on the Customer Order Page.
+
+Example QR values include:
+
+- table-1-qr
+- table-2-qr
+- table-3-qr
+
+Each QR value corresponds to a specific table stored in the SQLite database. Once connected, customers can browse menu items, place orders, and track order status through the confirmation page. Staff can also generate new QR code values through the staff dashboard.
+
 ## Database Notes
 
 The main database files for this project are:

@@ -6,7 +6,6 @@ from services.database_service import (
     get_table_by_qr,
 )
 
-
 def build_order_items(categories):
     """Build a list of selected order items from the menu inputs."""
     order_items = []
@@ -76,7 +75,7 @@ def main():
     st.write("Select your items and place an order.")
 
     # QR code input section
-    qr_value = st.text_input("Scan or enter QR code")
+    qr_value = st.text_input("Scan or enter QR code:", placeholder="Example: table-1-qr")
 
     col_qr1, col_qr2 = st.columns(2)
 
@@ -152,7 +151,6 @@ def main():
 
         if st.button("Track my order status"):
             st.switch_page("pages/confirmation.py")
-
 
 if __name__ == "__main__":
     main()
