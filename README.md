@@ -6,11 +6,12 @@ The Smart Restaurant System is a web-based application designed to improve the r
 
 The goal of the project is to replace a manual ordering workflow with a simple digital system that improves efficiency, organization, and customer experience.
 
-This project represents the Phase II version of the capstone project and includes finalized core functionality, testing, and documentation.
+This project represents the Phase II version of the capstone project and includes finalized core functionality, testing, QR code table access, and documentation.
 
 ## Features
 
 - Customers can place orders through the user interface
+- Customers can connect to a table using a QR code or table code
 - Orders are stored in a SQLite database
 - Staff can view and manage incoming orders
 - Order workflow is supported through the staff interface
@@ -22,6 +23,8 @@ This project represents the Phase II version of the capstone project and include
 - Python
 - Streamlit
 - SQLite
+- qrcode
+- Pillow
 - GitHub
 
 ## Project Structure
@@ -38,16 +41,20 @@ This project represents the Phase II version of the capstone project and include
 
 ## Setup
 
-1. Install dependencies:
-   pip install streamlit
+1. Install dependencies
 
-2. Create the database:
+   pip install streamlit qrcode pillow
+
+2. Create the database
+
    sqlite3 database/restaurant.db < database/schema.sql
 
-3. Load seed data:
+3. Load seed data
+
    sqlite3 database/restaurant.db < database/seed.sql
 
-4. Run the application:
+4. Run the application
+
    streamlit run app.py
 
 ## Database Notes
@@ -67,14 +74,15 @@ Testing is included to validate core functionality such as:
 - Database interactions
 - Staff order viewing
 - Staff workflow behavior
+- QR code table connection
 
 The project includes test files for service and staff page functionality. See TEST_CASES.md for more details.
 
 ## Notes
 
-This project represents the Phase II capstone submission. It focuses on the digital restaurant workflow, including customer ordering, database storage, and staff-side order management.
+This project represents the Phase II capstone submission. It focuses on the digital restaurant workflow, including customer ordering, QR code table access, database storage, and staff-side order management.
 
-The system is designed to be modular, maintainable, and easy to improve in future phases or extensions.
+The system is designed to be modular, maintainable, and easy to improve in future phases or future development.
 
 ## Team
 
